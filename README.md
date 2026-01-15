@@ -1,224 +1,128 @@
-# Empathetic AI Healthcare Companion
+# Companion AI
 
-A web-based companion application that provides emotional support and companionship to chronic illness patients through voice and text interactions.
+A healthcare companion app for people dealing with chronic illness. It's basically a chat app where you can talk (or type) and get emotional support. Nothing fancy, just someone to talk to.
 
-## Core Value Proposition
+**Important:** This is NOT medical advice or therapy. It's just a companion. If you're in crisis, please reach out to professionals (988, 911, etc).
 
-> "Most health apps track symptoms. This one tracks how you're feeling — and responds like someone who cares."
+## What it does
 
-## ⚠️ Important Disclaimers
+- Voice or text chat with an AI companion
+- Detects crisis situations and shows resources
+- Stores your daily conversations
+- Text-to-speech so you can hear responses
 
-- **NOT medical advice, therapy, diagnosis, or emergency system**
-- Provides companionship and emotional support only
-- Includes crisis detection with resources, but is not a replacement for professional help
+## Tech stuff
 
-## Tech Stack
+Built with Next.js 14, Supabase for auth/database, Groq for AI responses, and Deepgram for voice transcription. Everything runs on Vercel.
 
-- **Frontend**: Next.js 14 (App Router), React, TypeScript
-- **Backend**: Vercel Serverless Functions
-- **Database**: Supabase (PostgreSQL + Auth + RLS)
-- **AI**: OpenAI GPT-3.5-turbo (conversation), Whisper (transcription)
-- **Voice**: Browser-based recording, Web Speech API (TTS)
+## Getting started
 
-## Project Structure
+### Prerequisites
 
-```
-├── app/
-│   ├── api/
-│   │   ├── chat/route.ts          # Chat endpoint (GET/POST)
-│   │   └── transcribe/route.ts    # Whisper transcription proxy
-│   ├── auth/
-│   │   ├── login/page.tsx         # Login page
-│   │   └── signup/page.tsx        # Sign up page
-│   ├── chat/page.tsx              # Main chat interface
-│   ├── layout.tsx                 # Root layout
-│   └── page.tsx                   # Root redirect
-├── components/
-│   └── CrisisModal.tsx            # Crisis detection modal
-├── hooks/
-│   ├── useAuth.ts                 # Authentication hook
-│   └── useAudioRecorder.ts        # Audio recording hook
-├── lib/
-│   ├── audio/
-│   │   ├── analysis.ts            # Audio feature extraction
-│   │   └── whisper.ts             # Transcription client
-│   ├── crisis/
-│   │   └── detection.ts           # Crisis keyword detection
-│   ├── supabase/
-│   │   ├── client.ts              # Browser Supabase client
-│   │   ├── server.ts              # Server Supabase client
-│   │   └── middleware.ts          # Auth middleware
-│   └── tts/
-│       └── playback.ts            # Text-to-speech
-├── supabase/
-│   └── migrations/
-│       └── schema.sql
-└── middleware.ts                  # Next.js middleware
-```
+- Node.js 18+
+- Supabase account (free tier works)
+- Groq API key (free tier)
+- Deepgram API key (free tier)
 
-## Setup Instructions
+### Setup
 
-### 1. Prerequisites
-
-- Node.js 18+ installed
-- Supabase account and project
-- OpenAI API key
-
-### 2. Install Dependencies
-
+1. Clone and install:
 ```bash
 npm install
 ```
 
-### 3. Environment Variables
-
-Create a `.env.local` file in the root directory:
-
+2. Create `.env.local`:
 ```env
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# OpenAI Configuration
-OPENAI_API_KEY=your_openai_api_key
-
-# Server-side only (for API routes)
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+GROQ_API_KEY=your_groq_key
+DEEPGRAM_API_KEY=your_deepgram_key
 ```
 
-### 4. Database Setup
+3. Run the database migration:
+   - Go to Supabase dashboard → SQL Editor
+   - Copy/paste `supabase/migrations/schema.sql`
+   - Run it
 
-1. Go to your Supabase project dashboard
-2. Navigate to **SQL Editor**
-3. Copy the contents of `supabase/migrations/schema.sql`
-4. Paste and run the SQL
-5. Verify tables appear in **Table Editor**
-
-See `supabase/migrations/README.md` for detailed testing instructions.
-
-### 5. Run Development Server
-
+4. Start dev server:
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+That's it. Open http://localhost:3000 and sign up.
+
+## Project structure
+
+```
+app/
+  api/          # API routes (chat, transcribe, conversations)
+  auth/         # Login/signup pages
+  chat/         # Main chat interface
+components/     # React components
+hooks/          # Custom hooks
+lib/            # Utilities (supabase, audio, crisis detection)
+supabase/       # Database migrations
+```
 
 ## Features
 
-### ✅ Implemented
+- Email/password auth via Supabase
+- Voice recording in browser
+- AI chat using Groq (fast and free)
+- Voice transcription via Deepgram
+- Crisis keyword detection
+- Conversation history sidebar
+- Delete conversations
+- Bold highlights in AI responses
 
-1. **Authentication** - Email/password via Supabase Auth
-2. **Daily Conversations** - One conversation per user per day
-3. **Voice Recording** - Browser-based audio recording
-4. **Transcription** - OpenAI Whisper integration
-5. **Chat Interface** - Voice-first with text fallback
-6. **AI Responses** - GPT-3.5-turbo with empathetic system prompt
-7. **Crisis Detection** - Keyword-based detection with immediate resources
-8. **Text-to-Speech** - Browser TTS for assistant responses
-9. **Audio Features** - Simple volume, pace, pause detection
-10. **Row Level Security** - User data isolation
+## Testing
 
-## Manual Testing
+Just use it normally:
+- Sign up and log in
+- Try voice recording (click mic button)
+- Type some messages
+- Test crisis detection (try "I want to die" - it'll show resources)
+- Check conversation history (hamburger menu)
 
-### Test Authentication
-1. Sign up with a new email
-2. Log out and log back in
-3. Verify session persists
+## Known issues / limitations
 
-### Test Voice Recording
-1. Click microphone button
-2. Speak for a few seconds
-3. Click stop
-4. Verify transcription appears
-5. Verify assistant responds
-
-### Test Crisis Detection
-1. Type or say a message containing crisis keywords (e.g., "I want to kill myself")
-2. Verify crisis modal appears immediately
-3. Verify conversation is blocked
-4. Check crisis_flags table in Supabase
-
-### Test Text Input
-1. Type a message in the text input
-2. Press Send
-3. Verify message appears and assistant responds
-
-### Test TTS
-1. Send a message
-2. Verify assistant response is spoken aloud
-3. Verify speech stops when new message is sent
-
-## Architecture Decisions
-
-### Why Client-Heavy?
-- Privacy: Audio never leaves browser until user sends
-- Simplicity: Less server infrastructure
-- Interview-defensible: Clear trade-offs explained
-
-### Why Simple Audio Features?
-- MVP scope: Complex ML analysis is over-engineering
-- Interview-defensible: "We use simple heuristics for MVP"
-
-### Why Keyword-Based Crisis Detection?
-- Over-triggering acceptable: Safety prioritized
-- Simple implementation: No ML model needed
-- Immediate response: No latency from model inference
-
-### Why Daily Conversations?
-- Privacy: Easy to understand data boundaries
-- Simplicity: No complex threading logic
-- Interview-defensible: Clear user mental model
-
-## Known Limitations (MVP Scope)
-
-1. **Audio Features**: Simplified heuristics, not true audio analysis
-2. **Crisis Detection**: Keyword-based only, may have false positives
-3. **TTS Quality**: Browser-dependent, varies by browser
-4. **No Audio Storage**: Raw audio not stored (by design)
-5. **Single Language**: English only
-6. **No Multi-Day Threads**: Each day is a new conversation
+- Audio features are pretty basic (just volume/pace estimates)
+- Crisis detection is keyword-based, might have false positives
+- TTS quality depends on your browser
+- English only for now
+- Each day is a new conversation (no threading)
 
 ## Deployment
 
-### Vercel (Recommended)
+Push to Vercel:
+1. Connect GitHub repo
+2. Add env variables
+3. Deploy
 
-1. Push code to GitHub
-2. Import project in Vercel
-3. Add environment variables
-4. Deploy
-
-### Environment Variables in Vercel
-
-Add all variables from `.env.local` to Vercel project settings.
+That's it. Vercel handles everything.
 
 ## Troubleshooting
 
-### "Unauthorized" errors
-- Check Supabase RLS policies are created
-- Verify user is authenticated
-- Check middleware is running
+**Can't log in?**
+- Check Supabase auth settings (disable email confirmation for testing)
+- Make sure RLS policies are set up
 
-### Transcription fails
-- Verify OpenAI API key is set
-- Check audio format (should be webm)
-- Verify microphone permissions granted
+**Transcription not working?**
+- Check Deepgram API key
+- Make sure mic permissions are granted
 
-### Crisis modal not appearing
-- Check browser console for errors
-- Verify keywords are in detection list
-- Check crisis_flags table for logged events
+**Crisis modal not showing?**
+- Check browser console
+- Keywords might need to be added to detection list
 
-## Next Steps (Post-MVP)
+## Notes
 
-- [ ] Email confirmation flow
-- [ ] Conversation history view
-- [ ] Better audio feature extraction
-- [ ] Multi-language support
-- [ ] Improved TTS with better voices
-- [ ] Conversation export
+- Audio is recorded client-side for privacy
+- Conversations are stored per day (one per user per day)
+- Crisis detection logs to database for audit
+- All user data is isolated via RLS
 
 ## License
 
-Private project - not for public distribution.
-
+Private project.
