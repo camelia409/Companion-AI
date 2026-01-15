@@ -2,6 +2,8 @@
 
 A healthcare companion app for people dealing with chronic illness. It's basically a chat app where you can talk (or type) and get emotional support. Nothing fancy, just someone to talk to.
 
+**Live Demo:** [https://companion-ai-vercel.vercel.app/](https://companion-ai-vercel.vercel.app/)
+
 **Important:** This is NOT medical advice or therapy. It's just a companion. If you're in crisis, please reach out to professionals (988, 911, etc).
 
 ## What it does
