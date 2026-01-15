@@ -85,14 +85,6 @@ Just use it normally:
 - Test crisis detection (try "I want to die" - it'll show resources)
 - Check conversation history (hamburger menu)
 
-## Known issues / limitations
-
-- Audio features are pretty basic (just volume/pace estimates)
-- Crisis detection is keyword-based, might have false positives
-- TTS quality depends on your browser
-- English only for now
-- Each day is a new conversation (no threading)
-
 ## Deployment
 
 Push to Vercel:
