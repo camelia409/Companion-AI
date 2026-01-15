@@ -312,7 +312,9 @@ export default function ChatPage() {
       height: '100vh',
       maxWidth: '800px',
       margin: '0 auto',
-      padding: '1rem'
+      padding: '1rem',
+      backgroundColor: '#fff',
+      color: '#000'
     }}>
       {/* Header */}
       <header style={{ 
@@ -321,7 +323,8 @@ export default function ChatPage() {
         alignItems: 'center',
         padding: '1rem',
         borderBottom: '1px solid #ccc',
-        marginBottom: '1rem'
+        marginBottom: '1rem',
+        backgroundColor: '#fff'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button
@@ -332,13 +335,14 @@ export default function ChatPage() {
               border: '1px solid #ccc',
               borderRadius: '4px',
               cursor: 'pointer',
-              fontSize: '1.2rem'
+              fontSize: '1.2rem',
+              color: '#000'
             }}
             title="Conversation History"
           >
             ☰
           </button>
-          <h1 style={{ margin: 0 }}>Companion AI</h1>
+          <h1 style={{ margin: 0, color: '#000' }}>Companion AI</h1>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           {conversationId && (
@@ -365,7 +369,8 @@ export default function ChatPage() {
               backgroundColor: '#f0f0f0',
               border: '1px solid #ccc',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              color: '#000'
             }}
           >
             Sign Out
@@ -378,7 +383,8 @@ export default function ChatPage() {
         flex: 1, 
         overflowY: 'auto', 
         marginBottom: '1rem',
-        padding: '1rem'
+        padding: '1rem',
+        backgroundColor: '#fff'
       }}>
         {loadingConversation && (
           <p style={{ textAlign: 'center', color: '#666', marginTop: '2rem' }}>
@@ -421,12 +427,13 @@ export default function ChatPage() {
                 marginBottom: '1rem',
                 padding: '0.75rem 1rem',
                 borderRadius: '12px',
-                backgroundColor: message.role === 'user' ? '#e3f2fd' : '#f5f5f5',
+                backgroundColor: message.role === 'user' ? '#0070f3' : '#f5f5f5',
                 alignSelf: message.role === 'user' ? 'flex-end' : 'flex-start',
                 maxWidth: '75%',
                 marginLeft: message.role === 'user' ? 'auto' : '0',
                 marginRight: message.role === 'user' ? '0' : 'auto',
                 boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                color: message.role === 'user' ? '#fff' : '#000',
               }}
             >
               <div style={{ 
@@ -435,13 +442,12 @@ export default function ChatPage() {
                 alignItems: 'center',
                 marginBottom: '0.5rem' 
               }}>
-                <div style={{ fontWeight: '600', fontSize: '0.9rem' }}>
+                <div style={{ fontWeight: '600', fontSize: '0.9rem', color: message.role === 'user' ? '#fff' : '#000' }}>
                   {message.role === 'user' ? 'You' : 'Companion'}
                 </div>
                 <div style={{ 
                   fontSize: '0.75rem', 
-                  color: '#666',
-                  opacity: 0.7 
+                  color: message.role === 'user' ? 'rgba(255,255,255,0.8)' : '#666',
                 }}>
                   {timeString}
                 </div>
@@ -449,7 +455,8 @@ export default function ChatPage() {
               <div style={{ 
                 lineHeight: '1.5',
                 whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word'
+                wordBreak: 'break-word',
+                color: message.role === 'user' ? '#fff' : '#000'
               }}>
                 {message.role === 'assistant' 
                   ? parseMarkdown(message.content)
@@ -468,7 +475,8 @@ export default function ChatPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.5rem'
+            gap: '0.5rem',
+            backgroundColor: '#fff'
           }}>
             <span style={{
               display: 'inline-block',
@@ -556,7 +564,9 @@ export default function ChatPage() {
               flex: 1,
               padding: '0.75rem',
               border: '1px solid #ccc',
-              borderRadius: '4px'
+              borderRadius: '4px',
+              backgroundColor: '#fff',
+              color: '#000'
             }}
           />
           <button
